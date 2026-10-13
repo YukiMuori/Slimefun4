@@ -599,7 +599,7 @@ public class TickerTask implements Runnable {
     public void showWaitingList(int page) {
         var builder = Component.text()
                 .color(TextColor.color(0xFFD700))
-                .append(Component.text("===== Ticker 等待列表 ====="))
+                .append(Component.text("===== Coda del Ticker ====="))
                 .appendNewline();
 
         int j = 0;
@@ -610,31 +610,32 @@ public class TickerTask implements Runnable {
             builder.color(TextColor.color(0x00B7B7))
                     .append(Component.text()
                             .append(Component.text(head))
-                            .hoverEvent(Component.text("点击步过").clickEvent(ClickEvent.callback(p2 -> {
-                                while (!waiting.isEmpty() && waiting.peek().id <= entry.id) {
-                                    timedTickBlock();
-                                }
-                                showWaitingList();
-                            }))))
+                            .hoverEvent(Component.text("Clicca per avanzare di un passo")
+                                    .clickEvent(ClickEvent.callback(p2 -> {
+                                        while (!waiting.isEmpty() && waiting.peek().id <= entry.id) {
+                                            timedTickBlock();
+                                        }
+                                        showWaitingList();
+                                    }))))
                     .append(Component.text(" ".repeat(Math.max(0, 12 - head.length()))))
-                    .append(Component.text("[运行到] ")
-                            .hoverEvent(Component.text("点击运行到此并停止"))
+                    .append(Component.text("[Esegui fino a] ")
+                            .hoverEvent(Component.text("Clicca per eseguire fino a qui e fermarti"))
                             .clickEvent(ClickEvent.callback(p2 -> {
                                 while (!waiting.isEmpty() && waiting.peek().id < entry.id) {
                                     timedTickBlock();
                                 }
                                 showWaitingList();
                             })))
-                    .append(Component.text("[步过] ")
-                            .hoverEvent(Component.text("点击步过"))
+                    .append(Component.text("[Passo] ")
+                            .hoverEvent(Component.text("Clicca per avanzare di un passo"))
                             .clickEvent(ClickEvent.callback(p2 -> {
                                 while (!waiting.isEmpty() && waiting.peek().id <= entry.id) {
                                     timedTickBlock();
                                 }
                                 showWaitingList();
                             })))
-                    .append(Component.text("[高亮] ")
-                            .hoverEvent(Component.text("点击高亮方块"))
+                    .append(Component.text("[Evidenzia] ")
+                            .hoverEvent(Component.text("Clicca per evidenziare il blocco"))
                             .clickEvent(ClickEvent.callback(p2 -> {
                                 if (p2 instanceof Player p) {
                                     if (p.getLocation().getWorld()
@@ -651,8 +652,9 @@ public class TickerTask implements Runnable {
         int totalPage = (waiting.size() - 1) / PAGE_SIZE + 1;
         builder.color(TextColor.color(0xFFD700))
                 .append(Component.text()
-                        .append(Component.text("=== 上一页 < ")
-                                .hoverEvent(Component.text("点击跳转到上一页 (" + (page - 1) + ")"))
+                        .append(Component.text("=== Pagina precedente < ")
+                                .hoverEvent(
+                                        Component.text("Clicca per andare alla pagina precedente (" + (page - 1) + ")"))
                                 .clickEvent(ClickEvent.callback(p2 -> {
                                     if (page - 1 < 1) {
                                         return;
@@ -660,8 +662,9 @@ public class TickerTask implements Runnable {
                                     showWaitingList(page - 1);
                                 })))
                         .append(Component.text(page + " / " + totalPage)
-                                .append(Component.text(" > 下一页 ===")
-                                        .hoverEvent(Component.text("点击跳转到下一页 (" + (page + 1) + ")"))
+                                .append(Component.text(" > Pagina successiva ===")
+                                        .hoverEvent(Component.text(
+                                                "Clicca per andare alla pagina successiva (" + (page + 1) + ")"))
                                         .clickEvent(ClickEvent.callback(p2 -> {
                                             if (page + 1 > totalPage) {
                                                 return;

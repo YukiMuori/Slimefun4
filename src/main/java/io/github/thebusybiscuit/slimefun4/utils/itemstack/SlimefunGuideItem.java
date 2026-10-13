@@ -32,9 +32,9 @@ public class SlimefunGuideItem extends ItemStack {
 
         List<String> lore = new ArrayList<>();
         SlimefunGuideMode type = implementation.getMode();
-        lore.add(type == SlimefunGuideMode.CHEAT_MODE ? ChatColors.color("&4&l仅限管理员使用") : "");
-        lore.add(ChatColors.color("&e右键 &8\u21E8 &7浏览物品"));
-        lore.add(ChatColors.color("&eShift + 右键 &8\u21E8 &7打开 设置 / 关于"));
+        lore.add(type == SlimefunGuideMode.CHEAT_MODE ? ChatColors.color("&4&lSolo per amministratori") : "");
+        lore.add(ChatColors.color("&eClic destro &8\u21E8 &7Sfoglia gli oggetti"));
+        lore.add(ChatColors.color("&eShift + Clic destro &8\u21E8 &7Impostazioni / Info"));
 
         meta.setLore(lore);
 

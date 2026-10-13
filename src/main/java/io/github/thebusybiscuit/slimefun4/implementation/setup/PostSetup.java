@@ -70,24 +70,24 @@ public final class PostSetup {
                 + " - #########################");
         sender.sendMessage("");
         sender.sendMessage(ChatColor.GREEN
-                + "成功加载了 "
+                + "Caricati "
                 + total
-                + " 个物品和 "
+                + " oggetti e "
                 + Slimefun.getRegistry().getResearches().size()
-                + " 个研究");
+                + " ricerche");
         sender.sendMessage(ChatColor.GREEN
                 + "( "
                 + slimefunOnly
-                + " 物品来自本体, "
+                + " oggetti da Slimefun, "
                 + (total - slimefunOnly)
-                + " 个物品来自 "
+                + " oggetti da "
                 + Slimefun.getInstalledAddons().size()
-                + " 扩展 )");
+                + " addon )");
         sender.sendMessage("");
 
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.GREEN + " - 源码:      https://github.com/SlimefunGuguProject/Slimefun4");
-        sender.sendMessage(ChatColor.GREEN + " - Bug 反馈:  https://github.com/SlimefunGuguProject/Slimefun4/issues");
+        sender.sendMessage(ChatColor.GREEN + " - Sorgente:   https://github.com/SlimefunGuguProject/Slimefun4");
+        sender.sendMessage(ChatColor.GREEN + " - Bug:        https://github.com/SlimefunGuguProject/Slimefun4/issues");
 
         sender.sendMessage("");
 

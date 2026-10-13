@@ -365,10 +365,10 @@ public class PlayerProfile {
         float progress = Math.round(((unlockedResearches * 100.0F) / allResearches) * 100.0F) / 100.0F;
 
         sender.sendMessage("");
-        sender.sendMessage(ChatColors.color("&7玩家研究统计: &b" + getPlayer()));
+        sender.sendMessage(ChatColors.color("&7Statistiche ricerche di: &b" + getPlayer()));
         sender.sendMessage("");
-        sender.sendMessage(ChatColors.color("&7研究等级: " + ChatColor.AQUA + getTitle()));
-        sender.sendMessage(ChatColors.color("&7研究进度: "
+        sender.sendMessage(ChatColors.color("&7Livello ricerca: " + ChatColor.AQUA + getTitle()));
+        sender.sendMessage(ChatColors.color("&7Progresso ricerche: "
                 + NumberUtils.getColorFromPercentage(progress)
                 + progress
                 + " &r% "
@@ -378,7 +378,7 @@ public class PlayerProfile {
                 + " / "
                 + allResearches
                 + ')'));
-        sender.sendMessage(ChatColors.color("&7解锁总耗费经验: " + ChatColor.AQUA + levels));
+        sender.sendMessage(ChatColors.color("&7Livelli di esperienza spesi: " + ChatColor.AQUA + levels));
     }
 
     /**

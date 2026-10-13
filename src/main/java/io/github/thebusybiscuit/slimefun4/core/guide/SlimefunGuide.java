@@ -1,5 +1,6 @@
 package io.github.thebusybiscuit.slimefun4.core.guide;
 
+import io.github.bakedlibs.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
@@ -34,12 +35,28 @@ public final class SlimefunGuide {
         return Slimefun.getRegistry().getSlimefunGuide(design).getItem();
     }
 
+    /**
+     * Checks if the item is a guide of the given mode, either by its look or by its
+     * persistent mode tag (so copies with an older/other-language name still work).
+     */
+    public static boolean isGuideItem(@Nullable ItemStack item, @Nonnull SlimefunGuideMode mode) {
+        return item != null
+                && (SlimefunUtils.isItemSimilar(item, getItem(mode), false, false)
+                        || (item.getType() == Material.ENCHANTED_BOOK
+                                && item.hasItemMeta()
+                                && PersistentDataAPI.getOptionalString(
+                                                item.getItemMeta(),
+                                                Slimefun.getRegistry().getGuideDataKey())
+                                        .filter(mode.name()::equals)
+                                        .isPresent()));
+    }
+
     public static void openCheatMenu(@Nonnull Player p) {
         openMainMenuAsync(p, SlimefunGuideMode.CHEAT_MODE, 1);
     }
 
     public static void openGuide(@Nonnull Player p, @Nullable ItemStack guide) {
-        if (getItem(SlimefunGuideMode.CHEAT_MODE).equals(guide)) {
+        if (isGuideItem(guide, SlimefunGuideMode.CHEAT_MODE)) {
             openGuide(p, SlimefunGuideMode.CHEAT_MODE);
         } else {
             /*
@@ -119,7 +136,9 @@ public final class SlimefunGuide {
             return true;
         } else {
             return SlimefunUtils.isItemSimilar(item, getItem(SlimefunGuideMode.SURVIVAL_MODE), true)
-                    || SlimefunUtils.isItemSimilar(item, getItem(SlimefunGuideMode.CHEAT_MODE), true);
+                    || SlimefunUtils.isItemSimilar(item, getItem(SlimefunGuideMode.CHEAT_MODE), true)
+                    || isGuideItem(item, SlimefunGuideMode.SURVIVAL_MODE)
+                    || isGuideItem(item, SlimefunGuideMode.CHEAT_MODE);
         }
     }
 

@@ -64,7 +64,7 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
             public void onPlayerPlace(BlockPlaceEvent e) {
                 Block b = e.getBlockPlaced();
                 var blockData = StorageCacheUtils.getBlock(b.getLocation());
-                blockData.setData("text", "使用投影仪编辑文本");
+                blockData.setData("text", "Modifica il testo col proiettore");
                 blockData.setData(OFFSET_PARAMETER, "0.5");
                 blockData.setData("owner", e.getPlayer().getUniqueId().toString());
 
@@ -110,7 +110,7 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
                 0,
                 new CustomItemStack(
                         Material.NAME_TAG,
-                        "&7展示文本 &e(点击编辑)",
+                        "&7Testo mostrato &e(clicca per modificare)",
                         "",
                         "&f" + ChatColors.color(StorageCacheUtils.getData(projector.getLocation(), "text"))));
         menu.addMenuClickHandler(0, (pl, slot, item, action) -> {
@@ -138,13 +138,13 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
                 1,
                 new CustomItemStack(
                         Material.CLOCK,
-                        "&7高度: &e"
+                        "&7Altezza: &e"
                                 + NumberUtils.reparseDouble(Double.parseDouble(
                                                 StorageCacheUtils.getData(projector.getLocation(), OFFSET_PARAMETER))
                                         + 1.0D),
                         "",
-                        "&f左键单击: &7+0.1",
-                        "&f右键单击: &7-0.1"));
+                        "&fClic sinistro: &7+0.1",
+                        "&fClic destro: &7-0.1"));
         menu.addMenuClickHandler(1, (pl, slot, item, action) -> {
             var blockData = StorageCacheUtils.getBlock(projector.getLocation());
             double offset = NumberUtils.reparseDouble(

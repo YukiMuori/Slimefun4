@@ -368,7 +368,7 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
      */
     private Inventory newInv() {
         return Bukkit.createInventory(
-                this, size, (name.isEmpty() ? "背包" : ChatColors.color(name + "&r")) + " [大小 " + size + "]");
+                this, size, (name.isEmpty() ? "Zaino" : ChatColors.color(name + "&r")) + " [Dimensione " + size + "]");
     }
 
     private void updateInv() {

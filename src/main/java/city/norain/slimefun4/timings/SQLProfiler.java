@@ -138,7 +138,7 @@ public class SQLProfiler {
         Duration sqlTotalTime = Duration.ZERO;
 
         try (var writer = Files.newBufferedWriter(reportFile.toPath(), StandardCharsets.UTF_8)) {
-            writer.append("Slimefun SQL Timing 报告");
+            writer.append("Report SQL Timing di Slimefun");
             writer.newLine();
             writer.newLine();
 
@@ -176,17 +176,17 @@ public class SQLProfiler {
             }
 
             var totalTime = Duration.ofNanos(System.nanoTime()).minus(Duration.ofNanos(startTime));
-            writer.append("已运行: ")
+            writer.append("Eseguite: ")
                     .append(String.format(
                             "%dh%dm%dns", totalTime.toHours(), totalTime.toMinutesPart(), totalTime.toSecondsPart()));
             writer.newLine();
-            writer.append("总耗时: ")
+            writer.append("Tempo totale: ")
                     .append(String.format(
                             "%dm%ds%dms",
                             sqlTotalTime.toSeconds(), sqlTotalTime.toMillisPart(), sqlTotalTime.toNanosPart()));
             writer.newLine();
             var avg = sqlTotalTime.dividedBy(entryCount);
-            writer.append("平均耗时: ")
+            writer.append("Tempo medio: ")
                     .append(String.format("%dm%ds%dms", avg.toSeconds(), avg.toMillisPart(), avg.toNanosPart()));
         } catch (IOException e) {
             Slimefun.logger().log(Level.WARNING, "Unable to create sql timing report!", e);

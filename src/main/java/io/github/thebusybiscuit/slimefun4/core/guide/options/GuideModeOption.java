@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,14 +51,17 @@ class GuideModeOption implements SlimefunGuideOption<SlimefunGuideMode> {
             }
 
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(ChatColor.GRAY + "Slimefun 指南样式: " + ChatColor.YELLOW + selectedMode.getDisplayName());
+            meta.setDisplayName(
+                    ChatColor.GRAY + "Stile guida Slimefun: " + ChatColor.YELLOW + selectedMode.getDisplayName());
             List<String> lore = new ArrayList<>();
             lore.add("");
-            lore.add((selectedMode == SlimefunGuideMode.SURVIVAL_MODE ? ChatColor.GREEN : ChatColor.GRAY) + "普通模式");
-            lore.add((selectedMode == SlimefunGuideMode.CHEAT_MODE ? ChatColor.GREEN : ChatColor.GRAY) + "作弊模式");
+            lore.add((selectedMode == SlimefunGuideMode.SURVIVAL_MODE ? ChatColor.GREEN : ChatColor.GRAY)
+                    + "Modalità normale");
+            lore.add((selectedMode == SlimefunGuideMode.CHEAT_MODE ? ChatColor.GREEN : ChatColor.GRAY)
+                    + "Modalità cheat");
 
             lore.add("");
-            lore.add(ChatColor.GRAY + "\u21E8 " + ChatColor.YELLOW + "单击修改指南样式");
+            lore.add(ChatColor.GRAY + "\u21E8 " + ChatColor.YELLOW + "Clicca per cambiare stile della guida");
             meta.setLore(lore);
             item.setItemMeta(meta);
 
@@ -97,7 +99,7 @@ class GuideModeOption implements SlimefunGuideOption<SlimefunGuideMode> {
     @Nonnull
     @Override
     public Optional<SlimefunGuideMode> getSelectedOption(@Nonnull Player p, @Nonnull ItemStack guide) {
-        if (SlimefunUtils.isItemSimilar(guide, SlimefunGuide.getItem(SlimefunGuideMode.CHEAT_MODE), true, false)) {
+        if (SlimefunGuide.isGuideItem(guide, SlimefunGuideMode.CHEAT_MODE)) {
             return Optional.of(SlimefunGuideMode.CHEAT_MODE);
         } else {
             return Optional.of(SlimefunGuideMode.SURVIVAL_MODE);

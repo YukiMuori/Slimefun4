@@ -6,7 +6,6 @@ import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.core.guide.options.SlimefunGuideSettings;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.bukkit.Bukkit;
@@ -84,7 +83,7 @@ public class SlimefunGuideListener implements Listener {
     @ParametersAreNonnullByDefault
     private Result tryOpenGuide(Player p, PlayerRightClickEvent e, SlimefunGuideMode layout) {
         ItemStack item = e.getItem();
-        if (SlimefunUtils.isItemSimilar(item, SlimefunGuide.getItem(layout), false, false)) {
+        if (SlimefunGuide.isGuideItem(item, layout)) {
 
             if (!Slimefun.getWorldSettingsService().isWorldEnabled(p.getWorld())) {
                 Slimefun.getLocalization().sendMessage(p, "messages.disabled-item", true, msg -> {

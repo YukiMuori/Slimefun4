@@ -29,19 +29,20 @@ class ItemIdCommand extends SubCommand {
                     var sfItem = SlimefunItem.getByItem(item);
                     if (sfItem != null) {
                         var sfId = sfItem.getId();
-                        var msg = new TextComponent("该物品的ID为: ");
+                        var msg = new TextComponent("L'ID di questo oggetto è: ");
                         var idMsg = new TextComponent(sfId);
                         idMsg.setUnderlined(true);
                         idMsg.setItalic(true);
                         idMsg.setColor(ChatColor.GRAY);
-                        idMsg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("点击复制到剪贴板")));
+                        idMsg.setHoverEvent(new HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT, new Text("Clicca per copiare negli appunti")));
                         idMsg.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, sfId));
                         sender.spigot().sendMessage(msg, idMsg);
                     } else {
                         Slimefun.getLocalization().sendMessage(sender, "messages.invalid-item-in-hand", true);
                     }
                 } else {
-                    sender.sendMessage(ChatColors.color("&b请将需要查看的物品拿在主手!"));
+                    sender.sendMessage(ChatColors.color("&bTieni in mano principale l'oggetto da controllare!"));
                 }
             } else {
                 Slimefun.getLocalization().sendMessage(sender, "messages.no-permission", true);

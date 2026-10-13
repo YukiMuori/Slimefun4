@@ -59,10 +59,10 @@ public class CargoInputNode extends AbstractFilterNode {
                     24,
                     new CustomItemStack(
                             SlimefunUtils.getCustomHead(HeadTexture.ENERGY_REGULATOR.getTexture()),
-                            "&7轮循模式: &4\u2718",
+                            "&7Modalità Round-Robin: &4\u2718",
                             "",
-                            "&e> 单击启用轮循模式",
-                            "&e(物品将会在信道中平均分配)"));
+                            "&e> Clicca per attivare il Round-Robin",
+                            "&e(gli oggetti vengono distribuiti in modo uniforme nel canale)"));
             menu.addMenuClickHandler(24, (p, slot, item, action) -> {
                 StorageCacheUtils.setData(b.getLocation(), ROUND_ROBIN_MODE, String.valueOf(true));
                 updateBlockMenu(menu, b);
@@ -73,10 +73,10 @@ public class CargoInputNode extends AbstractFilterNode {
                     24,
                     new CustomItemStack(
                             SlimefunUtils.getCustomHead(HeadTexture.ENERGY_REGULATOR.getTexture()),
-                            "&7轮循模式: &2\u2714",
+                            "&7Modalità Round-Robin: &2\u2714",
                             "",
-                            "&e> 单击关闭轮循模式",
-                            "&e(物品将会在信道中平均分配)"));
+                            "&e> Clicca per disattivare il Round-Robin",
+                            "&e(gli oggetti vengono distribuiti in modo uniforme nel canale)"));
             menu.addMenuClickHandler(24, (p, slot, item, action) -> {
                 StorageCacheUtils.setData(b.getLocation(), ROUND_ROBIN_MODE, String.valueOf(false));
                 updateBlockMenu(menu, b);
@@ -93,14 +93,14 @@ public class CargoInputNode extends AbstractFilterNode {
                     16,
                     new CustomItemStack(
                             Material.WRITABLE_BOOK,
-                            "&7\"智能填充\" 模式: &4\u2718",
+                            "&7Modalità \"Riempimento intelligente\": &4\u2718",
                             "",
-                            "&e> 单击启用",
+                            "&e> Clicca per attivare",
                             "",
-                            "&f打开后, 货运节点会尝试",
-                            "&f让货运网络中的物品保持在一定数量",
-                            "&f但这个功能并不完美",
-                            "&f仍会尝试填满在一堆物品前的空位"));
+                            "&fSe attiva, il nodo cargo prova",
+                            "&fa mantenere una quantità fissa di oggetti",
+                            "&fma non è perfetto e",
+                            "&fpuò riempire slot vuoti prima di una pila"));
             menu.addMenuClickHandler(16, (p, slot, item, action) -> {
                 StorageCacheUtils.setData(b.getLocation(), SMART_FILL_MODE, String.valueOf(true));
                 updateBlockMenu(menu, b);
@@ -111,14 +111,14 @@ public class CargoInputNode extends AbstractFilterNode {
                     16,
                     new CustomItemStack(
                             Material.WRITTEN_BOOK,
-                            "&7\"智能填充\" 模式: &2\u2714",
+                            "&7Modalità \"Riempimento intelligente\": &2\u2714",
                             "",
-                            "&e> 单击禁用",
+                            "&e> Clicca per disattivare",
                             "",
-                            "&f打开后, 货运节点会尝试",
-                            "&f让货运网络中的物品保持在一定数量",
-                            "&f但这个功能并不完美",
-                            "&f仍会尝试填满在一堆物品前的空位"));
+                            "&fSe attiva, il nodo cargo prova",
+                            "&fa mantenere una quantità fissa di oggetti",
+                            "&fma non è perfetto e",
+                            "&fpuò riempire slot vuoti prima di una pila"));
             menu.addMenuClickHandler(16, (p, slot, item, action) -> {
                 StorageCacheUtils.setData(b.getLocation(), SMART_FILL_MODE, String.valueOf(false));
                 updateBlockMenu(menu, b);

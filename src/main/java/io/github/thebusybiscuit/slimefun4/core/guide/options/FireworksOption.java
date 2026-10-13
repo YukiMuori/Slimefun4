@@ -31,13 +31,13 @@ class FireworksOption implements SlimefunGuideOption<Boolean> {
             boolean enabled = getSelectedOption(p, guide).orElse(true);
             ItemStack item = new CustomItemStack(
                     Material.FIREWORK_ROCKET,
-                    "&b烟花特效: &" + (enabled ? "a启用" : "4禁用"),
+                    "&bFuochi d'artificio: &" + (enabled ? "aAttivi" : "4Disattivi"),
                     "",
-                    "&7你现在可以选择是否",
-                    "&7在解锁一个新物品的时候",
-                    "&7展示烟花特效.",
+                    "&7Puoi scegliere se mostrare",
+                    "&7i fuochi d'artificio quando",
+                    "&7sblocchi un nuovo oggetto.",
                     "",
-                    "&7\u21E8 &e点击 " + (enabled ? "禁用" : "启用") + " 烟花特效");
+                    "&7\u21E8 &eClicca per " + (enabled ? "disattivare" : "attivare") + " i fuochi d'artificio");
             return Optional.of(item);
         } else {
             return Optional.empty();

@@ -63,9 +63,9 @@ public class IndustrialMiner extends MultiBlockMachine {
                     null,
                     null,
                     null,
-                    new CustomItemStack(Material.PISTON, "活塞 (朝上)"),
+                    new CustomItemStack(Material.PISTON, "Pistone (verso l'alto)"),
                     new ItemStack(Material.CHEST),
-                    new CustomItemStack(Material.PISTON, "活塞 (朝上)"),
+                    new CustomItemStack(Material.PISTON, "Pistone (verso l'alto)"),
                     new ItemStack(baseMaterial),
                     new ItemStack(Material.BLAST_FURNACE),
                     new ItemStack(baseMaterial)
@@ -170,7 +170,7 @@ public class IndustrialMiner extends MultiBlockMachine {
             ItemStack item = fuel.getInput().clone();
             ItemMeta im = item.getItemMeta();
             List<String> lore = new ArrayList<>();
-            lore.add(ChatColors.color("&8\u21E8 &7剩余最多 " + fuel.getTicks() + " 个矿石"));
+            lore.add(ChatColors.color("&8\u21E8 &7Fino a " + fuel.getTicks() + " minerali"));
             im.setLore(lore);
             item.setItemMeta(im);
             list.add(item);

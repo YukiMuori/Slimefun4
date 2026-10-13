@@ -27,7 +27,7 @@ class OilResource extends AbstractResource {
     private final BiomeMap<Integer> biomes;
 
     OilResource() {
-        super("oil", "原油", SlimefunItems.OIL_BUCKET, 8, false);
+        super("oil", "Petrolio", SlimefunItems.OIL_BUCKET, 8, false);
 
         MinecraftVersion version = Slimefun.getMinecraftVersion();
 

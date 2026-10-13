@@ -38,7 +38,7 @@ public class ArmorForge extends AbstractCraftingTable {
                     new ItemStack(Material.ANVIL),
                     null,
                     null,
-                    new CustomItemStack(Material.DISPENSER, "发射器 (朝上)"),
+                    new CustomItemStack(Material.DISPENSER, "Dispenser (verso l'alto)"),
                     null
                 },
                 BlockFace.SELF);
