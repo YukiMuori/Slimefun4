@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -208,6 +209,8 @@ public class OreCrusher extends MultiBlockMachine {
                                 ItemStack removing = current.clone();
                                 removing.setAmount(convert.getAmount());
                                 inv.removeItem(removing);
+                                MachineAnimation.play(
+                                        b, possibleDispenser, MachineAnimation.Style.CRUSH, event.getOutput(), convert);
                                 outputInv.addItem(event.getOutput());
                                 p.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, 1);
                             } else {

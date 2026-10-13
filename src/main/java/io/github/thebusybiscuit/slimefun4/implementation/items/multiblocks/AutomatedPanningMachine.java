@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.ConsumeContext;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.InventoryContext;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -97,6 +98,14 @@ public class AutomatedPanningMachine extends MultiBlockMachine {
         }
 
         ItemStack finalOutput = event.getOutput();
+        // output arrives after ~120 ticks (5 x 20 + 20), land the animation right then
+        MachineAnimation.play(
+                MachineAnimation.above(b),
+                b,
+                MachineAnimation.Style.WASH,
+                120 - MachineAnimation.LANDING_TICK,
+                finalOutput,
+                input);
         if (p.getGameMode() != GameMode.CREATIVE) {
             var consumed = Slimefun.getItemStackService().consume(input, 1, false, ConsumeContext.VIRTUAL_CRAFTING);
             if (consumed.handled()) {

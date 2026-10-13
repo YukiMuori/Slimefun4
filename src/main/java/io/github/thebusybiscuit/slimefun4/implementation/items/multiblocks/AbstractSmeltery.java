@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -93,6 +94,7 @@ abstract class AbstractSmeltery extends MultiBlockMachine {
             }
         }
 
+        MachineAnimation.play(b, b.getRelative(BlockFace.DOWN), MachineAnimation.Style.SMELT, output, recipe);
         outputInv.addItem(output);
         SoundEffect.SMELTERY_CRAFT_SOUND.playAt(b);
         p.getWorld().playEffect(b.getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
