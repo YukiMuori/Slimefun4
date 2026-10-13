@@ -43,6 +43,8 @@ import org.bukkit.persistence.PersistentDataType;
 public class PlayerBackpack extends SlimefunInventoryHolder {
     public static final String LORE_OWNER = "&7所有者: ";
     private static final String COLORED_LORE_OWNER = ChatColors.color(LORE_OWNER);
+    // owner line as written by languages/it/items.yml
+    private static final String COLORED_LORE_OWNER_IT = ChatColors.color("&7Proprietario: ");
     private static final NamespacedKey KEY_BACKPACK_UUID = new NamespacedKey(Slimefun.instance(), "B_UUID");
     private static final NamespacedKey KEY_OWNER_UUID = new NamespacedKey(Slimefun.instance(), "OWNER_UUID");
     private final OfflinePlayer owner;
@@ -217,8 +219,8 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
         var lore = meta.getLore();
         for (var i = 0; i < lore.size(); i++) {
             var line = lore.get(i);
-            if (COLORED_LORE_OWNER.equals(line)) {
-                lore.set(i, COLORED_LORE_OWNER + bp.getOwner().getName());
+            if (COLORED_LORE_OWNER.equals(line) || COLORED_LORE_OWNER_IT.equals(line)) {
+                lore.set(i, line + bp.getOwner().getName());
                 break;
             }
         }

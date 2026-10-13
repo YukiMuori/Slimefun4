@@ -830,13 +830,13 @@ public final class SlimefunItems {
     static {
         ItemMeta helmetMeta = SCUBA_HELMET.getItemMeta();
         List<String> helmetLore = helmetMeta.getLore();
-        helmetLore.addAll(hazmatLore);
+        helmetLore.addAll(HAZMAT_LEGGINGS.getItemMeta().getLore()); // same lines, possibly translated
         helmetMeta.setLore(helmetLore);
         SCUBA_HELMET.setItemMeta(helmetMeta);
 
         ItemMeta chestplateMeta = HAZMAT_CHESTPLATE.getItemMeta();
         List<String> chestplateLore = chestplateMeta.getLore();
-        chestplateLore.addAll(hazmatLore);
+        chestplateLore.addAll(HAZMAT_LEGGINGS.getItemMeta().getLore()); // same lines, possibly translated
         chestplateMeta.setLore(chestplateLore);
         HAZMAT_CHESTPLATE.setItemMeta(chestplateMeta);
     }

@@ -7,6 +7,7 @@ import io.github.bakedlibs.dough.skins.PlayerSkin;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.exceptions.PrematureCodeException;
 import io.github.thebusybiscuit.slimefun4.api.exceptions.WrongItemStackException;
+import io.github.thebusybiscuit.slimefun4.core.services.localization.SlimefunLocalization;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
 import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedItemFlag;
@@ -23,6 +24,7 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -66,6 +68,11 @@ public class SlimefunItemStack extends ItemStack {
 
         ItemMeta meta = getItemMeta();
 
+        // A fresh definition (no Slimefun id yet), not a clone/copy of an existing SlimefunItemStack
+        if (Slimefun.getItemDataService().getItemData(meta).isEmpty()) {
+            applyTranslation(id, meta);
+        }
+
         Slimefun.getItemDataService().setItemData(meta, id);
         Slimefun.getItemTextureService().setTexture(meta, id);
 
@@ -77,7 +84,31 @@ public class SlimefunItemStack extends ItemStack {
 
         ItemMeta im = getItemMeta();
         consumer.accept(im);
+        applyTranslation(id, im);
         setItemMeta(im);
+    }
+
+    // Only item definitions are translated, so runtime clones/copies keep their (dynamic) lore untouched.
+    private static void applyTranslation(@Nonnull String id, @Nonnull ItemMeta im) {
+        SlimefunLocalization localization = Slimefun.getLocalization();
+        ConfigurationSection translation = localization == null ? null : localization.getItemTranslation(id);
+
+        if (translation == null) {
+            return;
+        }
+
+        String name = translation.getString("name");
+        if (name != null) {
+            im.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+        }
+
+        if (translation.isList("lore")) {
+            List<String> lore = new ArrayList<>();
+            for (String line : translation.getStringList("lore")) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', line));
+            }
+            im.setLore(lore);
+        }
     }
 
     public SlimefunItemStack(@Nonnull String id, @Nonnull Material type, @Nonnull Consumer<ItemMeta> consumer) {

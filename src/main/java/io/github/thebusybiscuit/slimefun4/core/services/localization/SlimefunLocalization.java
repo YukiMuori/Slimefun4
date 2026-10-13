@@ -27,6 +27,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -292,6 +293,16 @@ public abstract class SlimefunLocalization implements Keyed {
         Validate.notNull(key, "NamespacedKey cannot be null!");
 
         return getStringOrNull(getLanguage(p), LanguageFile.CATEGORIES, key.getNamespace() + '.' + key.getKey());
+    }
+
+    /**
+     * Returns the server-language translation (name/lore) of an item from items.yml,
+     * or null if there is none (the original text is then kept).
+     */
+    public @Nullable ConfigurationSection getItemTranslation(@Nonnull String id) {
+        Language language = getDefaultLanguage();
+        FileConfiguration config = language == null ? null : language.getFile(LanguageFile.ITEMS);
+        return config == null ? null : config.getConfigurationSection(id);
     }
 
     public @Nullable String getResourceString(@Nonnull Player p, @Nonnull String key) {

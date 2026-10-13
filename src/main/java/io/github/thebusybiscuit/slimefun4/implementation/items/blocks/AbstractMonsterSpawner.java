@@ -57,11 +57,13 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
         for (String line : meta.getLore()) {
             String stripColor = ChatColor.stripColor(line);
 
-            if ((stripColor.startsWith("类型: ") || stripColor.startsWith("Type:"))
-                    && (!line.contains("<类型>") || line.contains("<Type>"))) {
+            if ((stripColor.startsWith("类型: ") || stripColor.startsWith("Type:") || stripColor.startsWith("Tipo: "))
+                    && !line.contains("<类型>")
+                    && !line.contains("<Type>")) {
                 EntityType type = EntityType.valueOf(ChatColor.stripColor(line)
                         .replace("类型: ", "")
                         .replace("Type: ", "")
+                        .replace("Tipo: ", "")
                         .replace(' ', '_')
                         .toUpperCase(Locale.ROOT));
                 return Optional.of(type);

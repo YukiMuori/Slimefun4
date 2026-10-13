@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.apache.commons.lang.Validate;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -135,7 +136,11 @@ public abstract class LimitedUseItem extends SimpleSlimefunItem<ItemUseHandler> 
             // find the correct line
             for (int i = 0; i < lore.size(); i++) {
                 if (PatternUtils.USES_LEFT_LORE.matcher(lore.get(i)).matches()) {
-                    lore.set(i, newLine);
+                    // keep the line's language (it may come from a translated items.yml)
+                    lore.set(
+                            i,
+                            lore.get(i)
+                                    .replaceFirst(ChatColor.YELLOW + "[0-9]+", ChatColor.YELLOW.toString() + usesLeft));
                     meta.setLore(lore);
                     item.setItemMeta(meta);
                     return;
