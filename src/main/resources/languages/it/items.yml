@@ -32,6 +32,10 @@ ENHANCED_CRAFTING_TABLE:
   - ''
   - '&a&oUn Banco da Lavoro normale'
   - '&a&onon può contenere un potere così grande...'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
 PORTABLE_DUSTBIN:
   name: '&6Cestino Portatile'
   lore:
@@ -75,21 +79,39 @@ GRIND_STONE:
   lore:
   - ''
   - '&a&oMacina gli oggetti in altri oggetti'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
 ARMOR_FORGE:
   name: '&6Forgia per Armature'
   lore:
   - ''
   - '&a&oTi permette di creare armature potenti'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Attese ridotte fino al 55%'
 ORE_CRUSHER:
   name: '&bFrantumatore di Minerali'
   lore:
   - ''
   - '&a&oFrantuma i minerali raddoppiandoli'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
 COMPRESSOR:
   name: '&bCompressore'
   lore:
   - ''
   - '&aComprime gli oggetti'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Attese ridotte fino al 55%'
 MAGIC_LUMP_1:
   name: '&6Grumo Magico &7- &eI'
   lore:
@@ -234,6 +256,10 @@ SMELTERY:
   lore:
   - ''
   - '&aUna fornace ad alta temperatura per fondere i metalli'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
 IGNITION_CHAMBER:
   name: '&4Camera di Accensione Automatica'
   lore:
@@ -245,6 +271,11 @@ PRESSURE_CHAMBER:
   lore:
   - ''
   - '&aComprime gli oggetti ancora di più'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Attese ridotte fino al 55%'
 BATTERY:
   name: '&6Batteria'
 GLOWSTONE_HELMET:
@@ -510,6 +541,11 @@ MAGIC_WORKBENCH:
   lore:
   - ''
   - '&dInfonde energia magica negli oggetti'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Attese ridotte fino al 55%'
 STAFF_ELEMENTAL:
   name: '&6Bastone Elementale'
 STAFF_ELEMENTAL_WIND:
@@ -602,6 +638,11 @@ ORE_WASHER:
   - ''
   - '&a&oLava il minerale setacciato per filtrare i minerali'
   - '&a&oe ti dà dei piccoli frammenti di pietra'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Fino al 25% di resa doppia'
 GOLD_24K:
   name: Lingotto d'Oro &7(24 carati)
 GOLD_22K:
@@ -1100,6 +1141,11 @@ TABLE_SAW:
   - ''
   - '&a&oOttieni 8 assi da 1 tronco'
   - '&a&o(funziona con tutti i tipi di tronco)'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Fino al 25% di resa doppia'
 SLIME_STEEL_HELMET:
   name: '&a&lElmo di Slime'
   lore:
@@ -1165,6 +1211,12 @@ AUTOMATED_PANNING_MACHINE:
   lore:
   - ''
   - '&a&oVersione multiblocco del setaccio per oro'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Attese ridotte fino al 55%'
+  - '&7Fino al 25% di resa doppia'
 INDUSTRIAL_MINER:
   name: '&bMinatore Industriale'
   lore:
@@ -1417,6 +1469,11 @@ JUICER:
   lore:
   - ''
   - '&aTi permette di creare deliziosi succhi'
+  - ''
+  - '&eLivelli I-IV &7(Potenziamento macchina)'
+  - '&7Click destro sul blocco attivatore'
+  - '&7Lavorazioni per click: x2/x4/x8'
+  - '&7Fino al 25% di resa doppia'
 APPLE_JUICE:
   name: '&cSucco di Mela'
   lore:
@@ -3001,3 +3058,59 @@ CRAFTER_SMART_PORT:
   - ''
   - '&5Distribuisce gli input in base alle quantità della ricetta'
   - '&5e ha uno slot di uscita dedicato'
+SKY_MACHINE_UPGRADE_1:
+  name: '&ePotenziamento macchina &6Bronzo I'
+  lore:
+  - ''
+  - '&7Click destro sul blocco che attivi'
+  - '&7una macchina multiblocco base'
+  - '&7per portarla al &eLivello I'
+  - ''
+  - '&e» Fino a 2 lavorazioni per click'
+  - '&e» Attese ridotte del 15%'
+  - '&e» 5% di resa doppia'
+  - '&8  (Spremiagrumi, Lavatrice, Sega, Setacciatrice)'
+  - ''
+  - '&7Rompendo il blocco riavrai i potenziamenti'
+SKY_MACHINE_UPGRADE_2:
+  name: '&ePotenziamento macchina &fFerro II'
+  lore:
+  - ''
+  - '&7Click destro sul blocco che attivi'
+  - '&7una macchina multiblocco base'
+  - '&7di Livello I per il &eLivello II'
+  - ''
+  - '&e» Fino a 4 lavorazioni per click'
+  - '&e» Attese ridotte del 30%'
+  - '&e» 10% di resa doppia'
+  - '&8  (Spremiagrumi, Lavatrice, Sega, Setacciatrice)'
+  - ''
+  - '&7Rompendo il blocco riavrai i potenziamenti'
+SKY_MACHINE_UPGRADE_3:
+  name: '&ePotenziamento macchina &bDiamante III'
+  lore:
+  - ''
+  - '&7Click destro sul blocco che attivi'
+  - '&7una macchina multiblocco base'
+  - '&7di Livello II per il &eLivello III'
+  - ''
+  - '&e» Fino a 8 lavorazioni per click'
+  - '&e» Attese ridotte del 45%'
+  - '&e» 15% di resa doppia'
+  - '&8  (Spremiagrumi, Lavatrice, Sega, Setacciatrice)'
+  - ''
+  - '&7Rompendo il blocco riavrai i potenziamenti'
+SKY_MACHINE_UPGRADE_4:
+  name: '&ePotenziamento macchina &8Netherite IV'
+  lore:
+  - ''
+  - '&7Click destro sul blocco che attivi'
+  - '&7una macchina multiblocco base'
+  - '&7di Livello III per il &eLivello IV'
+  - ''
+  - '&e» Fino a 16 lavorazioni per click'
+  - '&e» Attese ridotte del 55%'
+  - '&e» 25% di resa doppia'
+  - '&8  (Spremiagrumi, Lavatrice, Sega, Setacciatrice)'
+  - ''
+  - '&7Rompendo il blocco riavrai i potenziamenti'

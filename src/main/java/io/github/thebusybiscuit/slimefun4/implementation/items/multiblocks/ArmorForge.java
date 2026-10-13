@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.ConsumeContext;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -97,7 +98,7 @@ public class ArmorForge extends AbstractCraftingTable {
                     MachineAnimation.above(dispenser.getRelative(BlockFace.UP)),
                     dispenser,
                     MachineAnimation.Style.CRAFT,
-                    60 - MachineAnimation.LANDING_TICK,
+                    3 * MachineTier.step() - MachineAnimation.LANDING_TICK,
                     output,
                     inv.getContents());
 
@@ -115,6 +116,8 @@ public class ArmorForge extends AbstractCraftingTable {
                 }
             }
 
+            long step = MachineTier.step();
+
             for (int j = 0; j < 4; j++) {
                 int current = j;
 
@@ -127,7 +130,7 @@ public class ArmorForge extends AbstractCraftingTable {
                                 handleCraftedItem(output, dispenser, inv);
                             }
                         },
-                        j * 20L);
+                        j * step);
             }
 
         } else {

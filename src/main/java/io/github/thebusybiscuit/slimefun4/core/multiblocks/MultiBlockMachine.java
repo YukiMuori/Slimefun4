@@ -138,7 +138,16 @@ public abstract class MultiBlockMachine extends SlimefunItem implements NotPlace
                 if (canUse(p, true)
                         && Slimefun.getProtectionManager()
                                 .hasPermission(p, b.getLocation(), Interaction.INTERACT_BLOCK)) {
-                    onInteract(p, b);
+                    // upgraded machines work up to 1/2/4/8 times per click, stopping as soon as a run crafts nothing
+                    int runs = MachineTier.begin(this, b);
+
+                    try {
+                        for (int i = 0; i < runs && (i == 0 || MachineTier.nextRun()); i++) {
+                            onInteract(p, b);
+                        }
+                    } finally {
+                        MachineTier.end();
+                    }
                 }
 
                 return true;

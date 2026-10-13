@@ -121,6 +121,8 @@ public class OreWasher extends MultiBlockMachine {
                         }
 
                         MultiBlockCraftEvent event = new MultiBlockCraftEvent(p, this, input, output);
+
+                        Bukkit.getPluginManager().callEvent(event);
                         if (event.isCancelled()) {
                             return;
                         }
@@ -137,6 +139,8 @@ public class OreWasher extends MultiBlockMachine {
                         Inventory outputInv = findOutputInventory(output, dispBlock, inv);
 
                         MultiBlockCraftEvent event = new MultiBlockCraftEvent(p, this, input, output);
+
+                        Bukkit.getPluginManager().callEvent(event);
                         if (event.isCancelled()) {
                             return;
                         }
@@ -185,7 +189,12 @@ public class OreWasher extends MultiBlockMachine {
             ItemStack removing = input.clone();
             removing.setAmount(amount);
             inputInv.removeItem(removing);
-            outputInv.addItem(output.clone());
+            // a doubled (upgrade) output may not fit entirely: drop the rest
+            outputInv
+                    .addItem(output.clone())
+                    .values()
+                    .forEach(rest -> b.getWorld()
+                            .dropItemNaturally(b.getRelative(BlockFace.UP).getLocation(), rest));
 
             b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, Material.WATER);
             SoundEffect.ORE_WASHER_WASH_SOUND.playAt(b);

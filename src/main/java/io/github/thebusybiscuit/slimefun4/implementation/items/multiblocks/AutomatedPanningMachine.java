@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.ConsumeContext;
 import io.github.thebusybiscuit.slimefun4.api.items.virtual.VirtualItemHandler.InventoryContext;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -98,12 +99,13 @@ public class AutomatedPanningMachine extends MultiBlockMachine {
         }
 
         ItemStack finalOutput = event.getOutput();
+        int step = (int) MachineTier.step();
         // output arrives after ~120 ticks (5 x 20 + 20), land the animation right then
         MachineAnimation.play(
                 MachineAnimation.above(b),
                 b,
                 MachineAnimation.Style.WASH,
-                120 - MachineAnimation.LANDING_TICK,
+                6 * step - MachineAnimation.LANDING_TICK,
                 finalOutput,
                 input);
         if (p.getGameMode() != GameMode.CREATIVE) {
@@ -119,11 +121,11 @@ public class AutomatedPanningMachine extends MultiBlockMachine {
         TaskQueue queue = new TaskQueue();
 
         queue.thenRepeatEvery(
-                20,
+                step,
                 5,
                 () -> b.getWorld()
                         .playEffect(b.getRelative(BlockFace.DOWN).getLocation(), Effect.STEP_SOUND, material));
-        queue.thenRun(20, () -> {
+        queue.thenRun(step, () -> {
             if (finalOutput.getType() != Material.AIR) {
                 Optional<Inventory> outputChest = OutputChest.findOutputChestFor(b.getRelative(BlockFace.DOWN), output);
 

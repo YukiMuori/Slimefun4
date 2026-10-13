@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -81,7 +82,7 @@ public class PressureChamber extends MultiBlockMachine {
                                     b.getRelative(BlockFace.UP).getLocation().add(0.5, 0.5, 0.5),
                                     possibleDispenser,
                                     MachineAnimation.Style.PRESS,
-                                    60 - MachineAnimation.LANDING_TICK,
+                                    3 * MachineTier.step() - MachineAnimation.LANDING_TICK,
                                     event.getOutput(),
                                     convert);
                             craft(p, b, event.getOutput(), inv, possibleDispenser);
@@ -99,6 +100,8 @@ public class PressureChamber extends MultiBlockMachine {
 
     @ParametersAreNonnullByDefault
     private void craft(Player p, Block b, ItemStack output, Inventory dispInv, Block dispenser) {
+        long step = MachineTier.step();
+
         for (int i = 0; i < 4; i++) {
             int j = i;
 
@@ -116,7 +119,7 @@ public class PressureChamber extends MultiBlockMachine {
                             handleCraftedItem(output, dispenser, dispInv);
                         }
                     },
-                    i * 20L);
+                    i * step);
         }
     }
 }

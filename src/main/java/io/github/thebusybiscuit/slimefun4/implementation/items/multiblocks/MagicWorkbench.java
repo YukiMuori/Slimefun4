@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.backpacks.SlimefunBackpack;
@@ -96,14 +97,16 @@ public class MagicWorkbench extends AbstractCraftingTable {
                     MachineAnimation.above(b),
                     dispenser,
                     MachineAnimation.Style.CRAFT,
-                    60 - MachineAnimation.LANDING_TICK,
+                    3 * MachineTier.step() - MachineAnimation.LANDING_TICK,
                     output,
                     inv.getContents());
 
+            // read now: the backpack callback may run after this click was handled
+            long step = MachineTier.step();
             var waitCallback = false;
             if (sfItem instanceof SlimefunBackpack backpack) {
-                waitCallback =
-                        upgradeBackpack(p, inv, backpack, output, () -> startAnimation(p, b, inv, dispenser, output));
+                waitCallback = upgradeBackpack(
+                        p, inv, backpack, output, () -> startAnimation(p, b, inv, dispenser, output, step));
             }
 
             for (int j = 0; j < 9; j++) {
@@ -117,14 +120,14 @@ public class MagicWorkbench extends AbstractCraftingTable {
             }
 
             if (!waitCallback) {
-                startAnimation(p, b, inv, dispenser, output);
+                startAnimation(p, b, inv, dispenser, output, step);
             }
         } else {
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
         }
     }
 
-    private void startAnimation(Player p, Block b, Inventory dispInv, Block dispenser, ItemStack output) {
+    private void startAnimation(Player p, Block b, Inventory dispInv, Block dispenser, ItemStack output, long step) {
         for (int j = 0; j < 4; j++) {
             int current = j;
             Slimefun.runSync(
@@ -139,7 +142,7 @@ public class MagicWorkbench extends AbstractCraftingTable {
                             handleCraftedItem(output, dispenser, dispInv);
                         }
                     },
-                    j * 20L);
+                    j * step);
         }
     }
 

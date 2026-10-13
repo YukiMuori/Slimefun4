@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -96,7 +97,7 @@ public class Compressor extends MultiBlockMachine {
                                     MachineAnimation.above(b),
                                     dispBlock,
                                     MachineAnimation.Style.PRESS,
-                                    60 - MachineAnimation.LANDING_TICK,
+                                    3 * MachineTier.step() - MachineAnimation.LANDING_TICK,
                                     event.getOutput(),
                                     recipeInput);
                             craft(p, event.getOutput(), dispBlock, inv);
@@ -115,6 +116,8 @@ public class Compressor extends MultiBlockMachine {
 
     @ParametersAreNonnullByDefault
     private void craft(Player p, ItemStack output, Block dispenser, Inventory dispInv) {
+        long step = MachineTier.step();
+
         for (int i = 0; i < 4; i++) {
             int j = i;
 
@@ -130,7 +133,7 @@ public class Compressor extends MultiBlockMachine {
                             handleCraftedItem(output, dispenser, dispInv);
                         }
                     },
-                    i * 20L);
+                    i * step);
         }
     }
 }

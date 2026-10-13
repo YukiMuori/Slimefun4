@@ -88,7 +88,12 @@ public class Juicer extends MultiBlockMachine {
                             inv.removeItem(removing);
                             MachineAnimation.play(
                                     b, possibleDispenser, MachineAnimation.Style.CRUSH, event.getOutput(), convert);
-                            outputInv.addItem(event.getOutput());
+                            // a doubled (upgrade) output may not fit entirely: drop the rest
+                            outputInv
+                                    .addItem(event.getOutput())
+                                    .values()
+                                    .forEach(rest ->
+                                            b.getWorld().dropItemNaturally(possibleDispenser.getLocation(), rest));
 
                             SoundEffect.JUICER_USE_SOUND.playAt(b);
                             // Not changed since this is supposed to be a natural sound.

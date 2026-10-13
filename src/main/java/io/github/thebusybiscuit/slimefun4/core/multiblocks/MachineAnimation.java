@@ -13,10 +13,12 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
@@ -49,6 +51,9 @@ public final class MachineAnimation {
 
     // one running animation per machine, keyed by the block the animation is centered in
     private static final Map<Location, List<Entity>> active = new HashMap<>();
+
+    // time scale of the animation being built right now: upgraded machines animate a bit faster
+    private static float pace = 1;
 
     private MachineAnimation() {}
 
@@ -89,11 +94,23 @@ public final class MachineAnimation {
                 .map(ItemStack::clone)
                 .toList();
 
-        Slimefun.runSync(() -> start(center, outputBlock, style, shownOutput, shownInputs), Math.max(0, delay));
+        int tier = MachineTier.current();
+
+        if (delay > 0) {
+            // keep landing when the output really arrives, the faster animation just starts later
+            delay += LANDING_TICK - Math.round(LANDING_TICK * pace(tier));
+        }
+
+        Slimefun.runSync(() -> start(center, outputBlock, style, tier, shownOutput, shownInputs), Math.max(0, delay));
     }
 
     private static void start(
-            Location center, Block outputBlock, Style style, @Nullable ItemStack output, List<ItemStack> inputs) {
+            Location center,
+            Block outputBlock,
+            Style style,
+            int tier,
+            @Nullable ItemStack output,
+            List<ItemStack> inputs) {
         Location key = center.getBlock().getLocation();
 
         try {
@@ -105,12 +122,19 @@ public final class MachineAnimation {
 
             List<Entity> spawned = new ArrayList<>();
             active.put(key, spawned);
-            Slimefun.runSync(() -> stop(key), TOTAL_TICKS);
+            pace = pace(tier);
+            Slimefun.runSync(() -> stop(key), scaled(TOTAL_TICKS));
             animate(center, outputBlock, style, output, inputs, spawned);
+
+            if (tier > 0) {
+                showTier(center, outputBlock, tier, spawned);
+            }
         } catch (RuntimeException x) {
             // never let a cosmetic effect break the machine
             stop(key);
             Slimefun.logger().log(Level.WARNING, "Could not play a machine animation", x);
+        } finally {
+            pace = 1;
         }
     }
 
@@ -206,7 +230,7 @@ public final class MachineAnimation {
             move(piston, 9, 3, press(0.1F));
         }
 
-        Slimefun.runSync(() -> inputPhase.forEach(Entity::remove), INPUT_TICKS + 1L);
+        Slimefun.runSync(() -> inputPhase.forEach(Entity::remove), scaled(INPUT_TICKS) + 1L);
 
         if (output != null) {
             Vector3f to = outputBlock
@@ -253,16 +277,45 @@ public final class MachineAnimation {
                 new Quaternionf());
     }
 
+    private static float pace(int tier) {
+        return 1 - 0.075F * tier;
+    }
+
+    private static long scaled(long ticks) {
+        return Math.round(ticks * pace);
+    }
+
+    /** Level label above the core and particles in the level's colour, at the start and at landing. */
+    private static void showTier(Location center, Block outputBlock, int tier, List<Entity> spawned) {
+        spawned.add(center.getWorld().spawn(center.clone().add(0, 0.75, 0), TextDisplay.class, t -> {
+            t.setPersistent(false);
+            t.setBillboard(Display.Billboard.CENTER);
+            t.text(MachineTier.label(tier));
+        }));
+
+        Particle.DustOptions dust = new Particle.DustOptions(MachineTier.color(tier), 1.2F);
+        center.getWorld().spawnParticle(Particle.DUST, center, 6 + 4 * tier, 0.35, 0.25, 0.35, dust);
+        Location landing = outputBlock.getLocation().add(0.5, 0.5, 0.5);
+        Slimefun.runSync(
+                () -> {
+                    if (landing.isChunkLoaded()) {
+                        landing.getWorld().spawnParticle(Particle.DUST, landing, 4 + 4 * tier, 0.3, 0.3, 0.3, dust);
+                    }
+                },
+                scaled(LANDING_TICK));
+    }
+
     private static void move(Display d, long tick, int duration, Transformation t) {
+        int scaledDuration = (int) Math.max(1, scaled(duration));
         Slimefun.runSync(
                 () -> {
                     if (d.isValid()) {
                         d.setInterpolationDelay(0);
-                        d.setInterpolationDuration(duration);
+                        d.setInterpolationDuration(scaledDuration);
                         d.setTransformation(t);
                     }
                 },
-                tick);
+                scaled(tick));
     }
 
     private static @Nonnull ItemDisplay spawn(

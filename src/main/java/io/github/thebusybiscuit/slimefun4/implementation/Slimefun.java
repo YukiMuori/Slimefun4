@@ -21,6 +21,7 @@ import io.github.thebusybiscuit.slimefun4.core.commands.SlimefunCommand;
 import io.github.thebusybiscuit.slimefun4.core.config.SlimefunConfigManager;
 import io.github.thebusybiscuit.slimefun4.core.config.SlimefunDatabaseManager;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.networks.NetworkManager;
 import io.github.thebusybiscuit.slimefun4.core.services.AnalyticsService;
 import io.github.thebusybiscuit.slimefun4.core.services.AutoSavingService;
@@ -767,6 +768,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
     private void loadItems() {
         try {
             SlimefunItemSetup.setup(this);
+            MachineTier.registerItems(this);
         } catch (Exception | LinkageError x) {
             getLogger()
                     .log(
@@ -782,6 +784,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
     private void loadResearches() {
         try {
             ResearchSetup.setupResearches();
+            MachineTier.registerResearches();
         } catch (Exception | LinkageError x) {
             getLogger()
                     .log(

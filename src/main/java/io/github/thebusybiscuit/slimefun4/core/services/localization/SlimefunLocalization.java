@@ -6,6 +6,7 @@ import io.github.bakedlibs.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunBranch;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.services.LocalizationService;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.util.Arrays;
@@ -353,6 +354,11 @@ public abstract class SlimefunLocalization implements Keyed {
     public void sendMessage(@Nonnull CommandSender recipient, @Nonnull String key, boolean addPrefix) {
         Validate.notNull(recipient, "Recipient cannot be null!");
         Validate.notNull(key, "Message key cannot be null!");
+
+        // extra runs of an upgraded machine must not repeat "empty"/"full" messages
+        if (MachineTier.isSilent()) {
+            return;
+        }
 
         String prefix = addPrefix ? getChatPrefix() : "";
 
