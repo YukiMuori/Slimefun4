@@ -3,6 +3,7 @@ package io.github.thebusybiscuit.slimefun4.implementation.items.multiblocks;
 import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -173,6 +174,14 @@ public class OreWasher extends MultiBlockMachine {
             ItemStack output,
             int amount) {
         if (outputInv != null) {
+            // the item sinks into the cauldron, the result hops up into the dispenser
+            MachineAnimation.play(
+                    b.getRelative(BlockFace.DOWN).getLocation().add(0.5, 0.5, 0.5),
+                    b.getRelative(BlockFace.UP),
+                    MachineAnimation.Style.WASH,
+                    0,
+                    output,
+                    input);
             ItemStack removing = input.clone();
             removing.setAmount(amount);
             inputInv.removeItem(removing);

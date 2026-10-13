@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -75,6 +76,14 @@ public class PressureChamber extends MultiBlockMachine {
                             removing.setAmount(convert.getAmount());
                             inv.removeItem(removing);
 
+                            // inside the glass, landing when the output arrives after 60 ticks
+                            MachineAnimation.play(
+                                    b.getRelative(BlockFace.UP).getLocation().add(0.5, 0.5, 0.5),
+                                    possibleDispenser,
+                                    MachineAnimation.Style.PRESS,
+                                    60 - MachineAnimation.LANDING_TICK,
+                                    event.getOutput(),
+                                    convert);
                             craft(p, b, event.getOutput(), inv, possibleDispenser);
                         } else {
                             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);

@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.backpacks.SlimefunBackpack;
@@ -89,6 +90,15 @@ public class MagicWorkbench extends AbstractCraftingTable {
 
         if (outputInv != null) {
             SlimefunItem sfItem = SlimefunItem.getByItem(output);
+
+            // output arrives after 60 ticks, land the animation right then
+            MachineAnimation.play(
+                    MachineAnimation.above(b),
+                    dispenser,
+                    MachineAnimation.Style.CRAFT,
+                    60 - MachineAnimation.LANDING_TICK,
+                    output,
+                    inv.getContents());
 
             var waitCallback = false;
             if (sfItem instanceof SlimefunBackpack backpack) {

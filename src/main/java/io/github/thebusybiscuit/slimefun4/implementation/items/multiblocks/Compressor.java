@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.events.MultiBlockCraftEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.multiblocks.MachineAnimation;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.core.services.sounds.SoundEffect;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -90,6 +91,14 @@ public class Compressor extends MultiBlockMachine {
                             removing.setAmount(recipeInput.getAmount());
                             inv.removeItem(removing);
 
+                            // output arrives after 60 ticks, land the animation right then
+                            MachineAnimation.play(
+                                    MachineAnimation.above(b),
+                                    dispBlock,
+                                    MachineAnimation.Style.PRESS,
+                                    60 - MachineAnimation.LANDING_TICK,
+                                    event.getOutput(),
+                                    recipeInput);
                             craft(p, event.getOutput(), dispBlock, inv);
                         } else {
                             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
